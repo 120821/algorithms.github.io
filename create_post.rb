@@ -12,273 +12,46 @@ def generate_post_file(title, categories)
     date: #{date}
     categories: [#{categories_str}]
     ---
-    [kratos](https://go-kratos.dev/docs/getting-started/start)
-    [install kratos](https://go-kratos.dev/docs/getting-started/usage/#%E5%AE%89%E8%A3%85)
-    ### 安装kratos
+    链表是一种基础且重要的数据结构，它由一系列节点组成，每个节点包含数据本身以及一个指向下一个节点的引用（在双向链表中，还会有一个指向前一个节点的引用）。
 
-    ```sh
-    /workspace$ go install github.com/go-kratos/kratos/cmd/kratos/v2@latest
-    go: downloading github.com/go-kratos/kratos/cmd/kratos/v2 v2.0.0-20240315031937-05b23fbb5b1e
-    go: downloading github.com/go-kratos/kratos/cmd/kratos v0.0.0-20210217095515-c4e4aa563867
-    go: downloading github.com/go-kratos/kratos v1.0.1
-    go: downloading github.com/AlecAivazis/survey/v2 v2.3.7
-    go: downloading github.com/spf13/cobra v1.4.0
-    go: downloading github.com/fatih/color v1.13.0
-    go: downloading golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4
-    go: downloading golang.org/x/text v0.4.0
-    go: downloading github.com/emicklei/proto v1.10.0
-    go: downloading github.com/mattn/go-colorable v0.1.12
-    go: downloading golang.org/x/sys v0.1.0
-    go: downloading github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51
-    go: downloading golang.org/x/term v0.0.0-20210927222741-03fcf44c2211
-    go: downloading github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b
-    go: downloading github.com/spf13/pflag v1.0.5
+    链表的这种结构允许有效地在序列中的任何位置进行插入和删除操作，不需要像数组那样进行大量的元素移动。
 
-    ```
-    ### 创建项目
-    ```sh
-    kratos new helloworld
-    ```
-    output:
-    ```sh
-    linlin@linlin-i5:/workspace$ kratos new helloworld
-    🚀 Creating service helloworld, layout repo is https://github.com/go-kratos/kratos-layout.git, please wait a moment.
+    链表相关的算法题目：
 
-    Cloning into '/home/linlin/.kratos/repo/github.com/go-kratos/kratos-layout@main'...
+    ### 1. 遍历和搜索
+    - **单链表遍历**：遍历链表，访问链表中的每个节点。
+    - **双向链表遍历**：既可以向前也可以向后遍历链表。
+    - **查找链表中的元素**：根据值或位置查找元素。
 
-    CREATED helloworld/.gitignore (552 bytes)
-    CREATED helloworld/Dockerfile (459 bytes)
-    CREATED helloworld/LICENSE (1066 bytes)
-    CREATED helloworld/Makefile (2525 bytes)
-    CREATED helloworld/README.md (1062 bytes)
-    CREATED helloworld/api/helloworld/v1/error_reason.pb.go (4991 bytes)
-    CREATED helloworld/api/helloworld/v1/error_reason.proto (290 bytes)
-    CREATED helloworld/api/helloworld/v1/greeter.pb.go (8074 bytes)
-    CREATED helloworld/api/helloworld/v1/greeter.proto (678 bytes)
-    CREATED helloworld/api/helloworld/v1/greeter_grpc.pb.go (3560 bytes)
-    CREATED helloworld/api/helloworld/v1/greeter_http.pb.go (2139 bytes)
-    CREATED helloworld/cmd/helloworld/main.go (1744 bytes)
-    CREATED helloworld/cmd/helloworld/wire.go (607 bytes)
-    CREATED helloworld/cmd/helloworld/wire_gen.go (1069 bytes)
-    CREATED helloworld/configs/config.yaml (291 bytes)
-    CREATED helloworld/go.mod (1263 bytes)
-    CREATED helloworld/go.sum (8922 bytes)
-    CREATED helloworld/internal/biz/README.md (6 bytes)
-    CREATED helloworld/internal/biz/biz.go (128 bytes)
-    CREATED helloworld/internal/biz/greeter.go (1236 bytes)
-    CREATED helloworld/internal/conf/conf.pb.go (20782 bytes)
-    CREATED helloworld/internal/conf/conf.proto (761 bytes)
-    CREATED helloworld/internal/data/README.md (7 bytes)
-    CREATED helloworld/internal/data/data.go (473 bytes)
-    CREATED helloworld/internal/data/greeter.go (835 bytes)
-    CREATED helloworld/internal/server/grpc.go (826 bytes)
-    CREATED helloworld/internal/server/http.go (831 bytes)
-    CREATED helloworld/internal/server/server.go (150 bytes)
-    CREATED helloworld/internal/service/README.md (10 bytes)
-    CREATED helloworld/internal/service/greeter.go (688 bytes)
-    CREATED helloworld/internal/service/service.go (136 bytes)
-    CREATED helloworld/openapi.yaml (1130 bytes)
-    CREATED helloworld/third_party/README.md (14 bytes)
-    CREATED helloworld/third_party/errors/errors.proto (411 bytes)
-    CREATED helloworld/third_party/google/api/annotations.proto (1051 bytes)
-    CREATED helloworld/third_party/google/api/client.proto (3395 bytes)
-    CREATED helloworld/third_party/google/api/field_behavior.proto (3011 bytes)
-    CREATED helloworld/third_party/google/api/http.proto (15140 bytes)
-    CREATED helloworld/third_party/google/api/httpbody.proto (2671 bytes)
-    CREATED helloworld/third_party/google/protobuf/any.proto (5909 bytes)
-    CREATED helloworld/third_party/google/protobuf/api.proto (7734 bytes)
-    CREATED helloworld/third_party/google/protobuf/compiler/plugin.proto (8754 bytes)
-    CREATED helloworld/third_party/google/protobuf/descriptor.proto (38497 bytes)
-    CREATED helloworld/third_party/google/protobuf/duration.proto (4895 bytes)
-    CREATED helloworld/third_party/google/protobuf/empty.proto (2429 bytes)
-    CREATED helloworld/third_party/google/protobuf/field_mask.proto (8185 bytes)
-    CREATED helloworld/third_party/google/protobuf/source_context.proto (2341 bytes)
-    CREATED helloworld/third_party/google/protobuf/struct.proto (3779 bytes)
-    CREATED helloworld/third_party/google/protobuf/timestamp.proto (6459 bytes)
-    CREATED helloworld/third_party/google/protobuf/type.proto (6126 bytes)
-    CREATED helloworld/third_party/google/protobuf/wrappers.proto (4042 bytes)
-    CREATED helloworld/third_party/openapi/v3/annotations.proto (2195 bytes)
-    CREATED helloworld/third_party/openapi/v3/openapi.proto (22082 bytes)
-    CREATED helloworld/third_party/validate/README.md (81 bytes)
-    CREATED helloworld/third_party/validate/validate.proto (31270 bytes)
+    ### 2. 插入和删除
+    - **在链表头部插入节点**：更新头部指针以指向新节点。
+    - **在链表尾部插入节点**：遍历链表找到尾部，将尾部节点的next指向新节点。
+    - **在链表中间插入节点**：找到特定位置或节点，调整指针以插入新节点。
+    - **删除链表中的节点**：根据值或位置删除节点，并重新连接链表。
 
-    🍺 Project creation succeeded helloworld
-    💻 Use the following command to start the project 👇:
+    ### 3. 链表反转
+    - **反转整个链表**：递归或迭代地反转链表的指向。
+    - **局部反转链表**：反转链表中指定区间的部分。
 
-    $ cd helloworld
-    $ go generate ./...
-    $ go build -o ./bin/ ./...
-    $ ./bin/helloworld -conf ./configs
+    ### 4. 环路检测
+    - **判断链表是否有环**：使用快慢指针方法（Floyd判圈算法）。
+    - **找到环的起始节点**：在检测到环存在后，找到环的入口。
 
-          🤝 Thanks for using Kratos
-      📚 Tutorial: https://go-kratos.dev/docs/getting-started/start
+    ### 5. 合并链表
+    - **合并两个有序链表**：将两个有序链表合并为一个新的有序链表。
+    - **交错合并链表**：将两个链表的节点交错合并成一个新链表。
 
+    ### 6. 排序
+    - **链表排序**：应用排序算法（如归并排序）对链表进行排序。
 
-    ```
-    目录结构:
-    ```
-    linlin@linlin-i5:/workspace/helloworld$ ll
-    total 76
-    drwxrwxr-x   7 linlin linlin  4096  3月 15 22:02 ./
-    drwxr-xr-x 113 linlin linlin 12288  3月 15 22:02 ../
-    drwxrwxr-x   3 linlin linlin  4096  3月 15 22:02 api/
-    drwxrwxr-x   3 linlin linlin  4096  3月 15 22:02 cmd/
-    drwxrwxr-x   2 linlin linlin  4096  3月 15 22:02 configs/
-    -rw-rw-r--   1 linlin linlin   459  3月 15 22:02 Dockerfile
-    -rw-rw-r--   1 linlin linlin   552  3月 15 22:02 .gitignore
-    -rw-rw-r--   1 linlin linlin  1263  3月 15 22:02 go.mod
-    -rw-rw-r--   1 linlin linlin  8922  3月 15 22:02 go.sum
-    drwxrwxr-x   7 linlin linlin  4096  3月 15 22:02 internal/
-    -rw-rw-r--   1 linlin linlin  1066  3月 15 22:02 LICENSE
-    -rw-rw-r--   1 linlin linlin  2525  3月 15 22:02 Makefile
-    -rw-rw-r--   1 linlin linlin  1130  3月 15 22:02 openapi.yaml
-    -rw-rw-r--   1 linlin linlin  1062  3月 15 22:02 README.md
-    drwxrwxr-x   6 linlin linlin  4096  3月 15 22:02 third_party/
+    ### 7. 复杂问题
+    - **复制带随机指针的链表**：每个节点除了有一个next指针外，还有一个随机指针指向链表中的任意节点或null，要求复制这样的链表。
+    - **重排链表**：重新排列链表节点，例如L0→L1→…→Ln-1→Ln重排为L0→Ln→L1→Ln-1→L2→Ln-2→…
 
-    ```
-    使用-r可以指定源
-    ```sh
-    # 国内拉取失败可使用gitee源
-    kratos new helloworld -r https://gitee.com/go-kratos/kratos-layout.git
-    # 亦可使用自定义的模板
-    kratos new helloworld -r xxx-layout.git
-    # 同时也可以通过环境变量指定源
-    KRATOS_LAYOUT_REPO=xxx-layout.git
-    kratos new helloworld
-    ```
-    使用-b可以指定分支
-    ```sh
-    kratos new helloworld -b main
-    ```
-    使用 --nomod 添加服务，共用 go.mod ，大仓模式
-    ```sh
-    kratos new helloworld
-    cd helloworld
-    kratos new app/user --nomod
-    ```
-
-    ### 添加 Proto 文件
-    kratos-layout 项目中对 proto 文件进行了版本划分，放在了 v1 子目录下
-    ```sh
-    kratos proto add api/helloworld/v1/demo.proto
-    ```
-    输出:
-    ```sh
-    api/helloworld/v1/demo.proto
-    ```
-    查看
-    ```sh
-    cat api/helloworld/v1/demo.proto
-    syntax = "proto3";
-
-    package api.helloworld.v1;
-
-    option go_package = "helloworld/api/helloworld/v1;v1";
-    option java_multiple_files = true;
-    option java_package = "api.helloworld.v1";
-
-    service Demo {
-      rpc CreateDemo (CreateDemoRequest) returns (CreateDemoReply);
-      rpc UpdateDemo (UpdateDemoRequest) returns (UpdateDemoReply);
-      rpc DeleteDemo (DeleteDemoRequest) returns (DeleteDemoReply);
-      rpc GetDemo (GetDemoRequest) returns (GetDemoReply);
-      rpc ListDemo (ListDemoRequest) returns (ListDemoReply);
-    }
-
-    message CreateDemoRequest {}
-    message CreateDemoReply {}
-
-    message UpdateDemoRequest {}
-    message UpdateDemoReply {}
-
-    message DeleteDemoRequest {}
-    message DeleteDemoReply {}
-
-    message GetDemoRequest {}
-    message GetDemoReply {}
-
-    message ListDemoRequest {}
-    message ListDemoReply {}linlin@linlin-i5:/workspace/helloworld$
-    ```
-    ### 生成 Proto 代码
-    ```sh
-    # 安装依赖（如果没有安装的话）
-    sudo apt install protobuf-compiler
-    go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
-    go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
-
-    # 自动安装缺失的依赖
-    # go mod tidy
-    # 或者
-    go get github.com/fsnotify/fsnotify@v1.6.0
-    go get golang.org/x/net/idna@v0.17.0
-
-
-    # 生成Proto 代码
-    # 可以直接通过 make 命令生成
-    make api
-    # 或使用 kratos cli 进行生成(我选择了这个方式)
-    kratos proto client api/helloworld/v1/demo.proto
-    ```
-    ### 生成 Service 代码
-    通过 proto 文件，可以直接生成对应的 Service 实现代码：
-    使用 -t 指定生成目录
-    ```sh
-    kratos proto server api/helloworld/v1/demo.proto -t internal/service
-    ```
-    查看生成的文件:
-    ```
-    cat internal/service/demo.go
-    package service
-
-    import (
-      "context"
-
-      pb "helloworld/api/helloworld/v1"
-    )
-
-    type DemoService struct {
-      pb.UnimplementedDemoServer
-    }
-
-    func NewDemoService() *DemoService {
-      return &DemoService{}
-    }
-
-    func (s *DemoService) CreateDemo(ctx context.Context, req *pb.CreateDemoRequest) (*pb.CreateDemoReply, error) {
-      return &pb.CreateDemoReply{}, nil
-    }
-    func (s *DemoService) UpdateDemo(ctx context.Context, req *pb.UpdateDemoRequest) (*pb.UpdateDemoReply, error) {
-      return &pb.UpdateDemoReply{}, nil
-    }
-    func (s *DemoService) DeleteDemo(ctx context.Context, req *pb.DeleteDemoRequest) (*pb.DeleteDemoReply, error) {
-      return &pb.DeleteDemoReply{}, nil
-    }
-    func (s *DemoService) GetDemo(ctx context.Context, req *pb.GetDemoRequest) (*pb.GetDemoReply, error) {
-      return &pb.GetDemoReply{}, nil
-    }
-    func (s *DemoService) ListDemo(ctx context.Context, req *pb.ListDemoRequest) (*pb.ListDemoReply, error) {
-      return &pb.ListDemoReply{}, nil
-    }
-    ```
-    ### 运行项目
-    如子目录下有多个项目则出现选择菜单
-    ```sh
-    # 运行项目
-    kratos run
-
-    # 输出
-    INFO msg=config loaded: config.yaml format: yaml # 默认载入 configs/config.yaml 配置文件
-    INFO msg=[gRPC] server listening on: [::]:9000 # gRPC服务监听 9000 端口
-    INFO msg=[HTTP] server listening on: [::]:8000 # HTTP服务监听 8000 端口
-    ```
-    成功启动后：
-    ```sh
-    url 'http://127.0.0.1:8000/helloworld/kratos'
-    {"message":"Hello kratos"}linlin@linlin-i5:/workspace/helloworld$
-    ```
 
   POST
+
+  Dir.mkdir('_posts') unless Dir.exist?('_posts')
 
   File.open("_posts/#{filename}", 'w') do |file|
     file.puts content
@@ -288,4 +61,4 @@ def generate_post_file(title, categories)
 end
 
 # 用法示例
-generate_post_file("go-kratos", ["go", "kratos"])
+generate_post_file("数据结构-链表", ["go", "数据结构", "链表"])
